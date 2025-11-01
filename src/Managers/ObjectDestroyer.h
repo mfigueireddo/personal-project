@@ -1,9 +1,11 @@
 #pragma once
 
-#include "common_libraries.h"
+#include "../common_libraries.h"
 
-class ObjectDestroyer
+namespace Manager
 {
+    class ObjectDestroyer
+    {
     private:
 
         ObjectDestroyer() = default;
@@ -20,4 +22,5 @@ class ObjectDestroyer
     private:
 
         inline static std::vector<std::any*> m_objects;
-};
+    };
+}

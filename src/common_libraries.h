@@ -10,8 +10,7 @@
 #include <memory>
 
 // Managers
-#include "Error.h"
-#include "File.h"
-#include "Log.h"
-
-#include "ObjectDestroyer.h"
+#include "Managers/Error.h"
+#include "Managers/File.h"
+#include "Managers/Log.h"
+#include "Managers/ObjectDestroyer.h"

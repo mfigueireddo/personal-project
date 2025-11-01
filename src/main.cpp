@@ -39,7 +39,7 @@ int after_loop()
 
     if ( (status = Manager::Log::close_error_manager()) ) return status;
 
-    if ( (status = ObjectDestroyer::delete_objects()) ) return status;
+    if ( (status = Manager::ObjectDestroyer::delete_objects()) ) return status;
 
     return Manager::Error::errors::SUCCESS;
 }
