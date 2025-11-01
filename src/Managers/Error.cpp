@@ -1,4 +1,5 @@
 #include "Error.h"
+#include "../common_project_libraries.h"
 
 namespace Manager
 {
@@ -44,7 +45,7 @@ namespace Manager
             case errors::OBJECT_NOT_REGISTERED:
                 return "";
             default:
-                return "";
+                return "Unknown error";
         }
     }
 
@@ -67,7 +68,7 @@ namespace Manager
             case errors::OBJECT_NOT_REGISTERED:
                 return "ObjectDestroyer";
             default:
-                return "Unknown module";
+                return "Unknown error";
         }
     }
 }

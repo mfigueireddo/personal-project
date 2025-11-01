@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../common_libraries.h"
+#include "../common_std_libraries.h"
 
 namespace Manager
 {
@@ -13,7 +13,7 @@ namespace Manager
                 TXT,
             };
 
-            static std::string get_type_string(types type);
+            static std::string get_type_extension(types type);
 
         private:
 

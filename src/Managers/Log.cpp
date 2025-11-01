@@ -1,7 +1,10 @@
 #include "Log.h"
+#include "../common_project_libraries.h"
 
 namespace Manager
 {
+    
+
     Log* Log::create()
     {
         const auto object = new Log();

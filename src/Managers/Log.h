@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../common_libraries.h"
+#include "Error.h"
+#include "File.h"
+#include "../common_std_libraries.h"
 
 namespace Manager
 {

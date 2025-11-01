@@ -1,7 +1,7 @@
 #include "ObjectDestroyer.h"
+#include "../common_project_libraries.h"
 
-namespace Manager
-{
+namespace Manager {
     // private
 
     bool ObjectDestroyer::is_object_in_vector(std::any* object)
@@ -49,4 +49,4 @@ namespace Manager
 
         return Error::errors::SUCCESS;
     }
-;
+}

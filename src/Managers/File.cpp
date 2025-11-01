@@ -1,17 +1,18 @@
 #include "File.h"
+#include "../common_project_libraries.h"
 
 namespace Manager
 {
     // private
 
-    std::string File::get_type_string(const types type)
+    std::string File::get_type_extension(const types type)
     {
         switch (type)
         {
             case types::TXT:
                 return ".txt";
             default:
-                return "";
+                return "Unknown type";
         }
     }
 
@@ -20,8 +21,8 @@ namespace Manager
 
     std::string File::get_full_path() const
     {
-        const std::string extension = get_type_string(m_type);
-        if (extension.empty()) return "";
+        const std::string extension = get_type_extension(m_type);
+        if (extension == "Unknown type") return "Unknown type";
 
         std::string full_name = m_path + extension;
         return full_name;
@@ -41,7 +42,7 @@ namespace Manager
     int File::read()
     {
         const std::string file_path = get_full_path();
-        if (file_path.empty()) return Error::errors::UNKNOWN_EXTENSION;
+        if ( file_path == "Unknown type" ) return Error::errors::UNKNOWN_EXTENSION;
 
         m_file = fopen(file_path.c_str(), "r");
         if (!m_file) return Error::errors::FILE_NOT_FOUND;
