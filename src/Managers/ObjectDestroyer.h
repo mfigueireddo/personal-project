@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Error.h"
 #include "../common_std_libraries.h"
 
 namespace Manager
@@ -15,9 +16,9 @@ namespace Manager
 
     public:
 
-        static int register_object(std::any* object);
-        static int unregister_object(std::any* object);
-        static int delete_objects();
+        static Error::errors register_object(std::any* object);
+        static Error::errors unregister_object(std::any* object);
+        static Error::errors delete_objects();
 
     private:
 

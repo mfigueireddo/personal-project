@@ -3,8 +3,6 @@
 
 namespace Manager
 {
-    
-
     Log* Log::create()
     {
         const auto object = new Log();
@@ -14,25 +12,33 @@ namespace Manager
 
     // -- --- File management --- ---
 
-    int Log::open_error_manager()
+    Error::errors Log::open_error_manager()
     {
         m_error_manager = File::create("files/log/error", File::types::TXT);
 
-        if (const int status = m_error_manager->open_to_write()) return status;
+        if (const Error::errors status = m_error_manager->open_to_write())
+        {
+            Log::register_error(status, __FILE__);
+            return status;
+        }
 
         return Error::errors::SUCCESS;
     }
 
-    int Log::close_error_manager()
+    Error::errors Log::close_error_manager()
     {
-        if (const int status = m_error_manager->close()) return status;
+        if (const Error::errors status = m_error_manager->close())
+        {
+            Log::register_error(status, __FILE__);
+            return status;
+        }
 
         return Error::errors::SUCCESS;
     }
 
     // -- --- Writing --- ---
 
-    int Log::register_error(const Error::errors error,  const std::filesystem::path& file)
+    Error::errors Log::register_error(const Error::errors error,  const std::filesystem::path& file)
     {
         std::ostringstream formated_message;
 

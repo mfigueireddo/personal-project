@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Error.h"
 #include "../common_std_libraries.h"
 
 namespace Manager
@@ -28,14 +29,14 @@ namespace Manager
 
             // --- --- Read --- ---
 
-            int read();
-            int print() const;
+            Error::errors read();
+            Error::errors print() const;
 
             // --- --- Write --- ---
 
-            int open_to_write();
-            int write(const std::string& content);
-            int close() const;
+            Error::errors open_to_write();
+            Error::errors write(const std::string& content);
+            Error::errors close() const;
 
             // --- --- Members --- ---
 

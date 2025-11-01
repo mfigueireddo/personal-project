@@ -1,7 +1,8 @@
 #include "ObjectDestroyer.h"
 #include "../common_project_libraries.h"
 
-namespace Manager {
+namespace Manager
+{
     // private
 
     bool ObjectDestroyer::is_object_in_vector(std::any* object)
@@ -16,29 +17,49 @@ namespace Manager {
 
     // public
 
-    int ObjectDestroyer::register_object(std::any* object)
+    Error::errors ObjectDestroyer::register_object(std::any* object)
     {
-        if (!object) return Error::errors::NULL_OBJECT;
+        if (!object)
+        {
+            constexpr Error::errors error = Error::errors::NULL_OBJECT;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
-        if (is_object_in_vector(object)) return Error::errors::OBJECT_ALREADY_REGISTERED;
+        if (is_object_in_vector(object))
+        {
+            constexpr Error::errors error = Error::errors::OBJECT_ALREADY_REGISTERED;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
         m_objects.push_back(object);
 
         return Error::errors::SUCCESS;
     }
 
-    int ObjectDestroyer::unregister_object(std::any* object)
+    Error::errors ObjectDestroyer::unregister_object(std::any* object)
     {
-        if (!object) return Error::errors::NULL_OBJECT;
+        if (!object)
+        {
+            constexpr Error::errors error = Error::errors::NULL_OBJECT;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
-        if (!is_object_in_vector(object)) return Error::errors::OBJECT_NOT_REGISTERED;
+        if (!is_object_in_vector(object))
+        {
+            constexpr Error::errors error = Error::errors::OBJECT_NOT_REGISTERED;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
         std::erase(m_objects, object);
 
         return Error::errors::SUCCESS;
     }
 
-    int ObjectDestroyer::delete_objects()
+    Error::errors ObjectDestroyer::delete_objects()
     {
         for (const auto* object : m_objects)
         {

@@ -19,12 +19,12 @@ namespace Manager
 
             // -- --- File management --- ---
 
-            static int open_error_manager();
-            static int close_error_manager();
+            static Error::errors open_error_manager();
+            static Error::errors close_error_manager();
 
             // -- --- Writing --- ---
 
-            static int register_error(Error::errors error, const std::filesystem::path& file);
+            static Error::errors register_error(Error::errors error, const std::filesystem::path& file);
 
         private:
 

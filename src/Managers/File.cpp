@@ -39,13 +39,23 @@ namespace Manager
 
     // --- --- Read --- ---
 
-    int File::read()
+    Error::errors File::read()
     {
         const std::string file_path = get_full_path();
-        if ( file_path == "Unknown type" ) return Error::errors::UNKNOWN_EXTENSION;
+        if ( file_path == "Unknown type" )
+        {
+            constexpr Error::errors error = Error::errors::UNKNOWN_EXTENSION;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
         m_file = fopen(file_path.c_str(), "r");
-        if (!m_file) return Error::errors::FILE_NOT_FOUND;
+        if (!m_file)
+        {
+            constexpr Error::errors error = Error::errors::FILE_NOT_FOUND;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
         char buffer[1024];
         while (fgets(buffer, 1024, m_file))
@@ -58,7 +68,7 @@ namespace Manager
         return Error::errors::SUCCESS;
     }
 
-    int File::print() const
+    Error::errors File::print() const
     {
         std::cout << m_parsed_file << std::endl;
         return Error::errors::SUCCESS;
@@ -66,20 +76,35 @@ namespace Manager
 
     // --- --- Write --- ---
 
-    int File::open_to_write()
+    Error::errors File::open_to_write()
     {
         const std::string file_path = get_full_path();
-        if (file_path.empty()) return Error::errors::UNKNOWN_EXTENSION;
+        if (file_path.empty())
+        {
+            constexpr Error::errors error = Error::errors::UNKNOWN_EXTENSION;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
         m_file = fopen(file_path.c_str(), "w");
-        if (!m_file) return Error::errors::FILE_NOT_FOUND;
+        if (!m_file)
+        {
+            constexpr Error::errors error = Error::errors::FILE_NOT_FOUND;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
         return Error::errors::SUCCESS;
     }
 
-    int File::write(const std::string& content)
+    Error::errors File::write(const std::string& content)
     {
-        if (!m_file) return Error::errors::FILE_NOT_FOUND;
+        if (!m_file)
+        {
+            constexpr Error::errors error = Error::errors::FILE_NOT_FOUND;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
 
         fwrite(content.c_str(), 1, content.size(), m_file);
         m_parsed_file.append(content);
@@ -87,10 +112,17 @@ namespace Manager
         return Error::errors::SUCCESS;
     }
 
-    int File::close() const
+    Error::errors File::close() const
     {
-        if (!m_file) return Error::errors::FILE_NOT_FOUND;
+        if (!m_file)
+        {
+            constexpr Error::errors error = Error::errors::FILE_NOT_FOUND;
+            Log::register_error(error, __FILE__);
+            return error;
+        }
+
         fclose(m_file);
+
         return Error::errors::SUCCESS;
     }
 }
